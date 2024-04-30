@@ -1,0 +1,95 @@
+{% extends 'user/ccuubase.html' %}
+
+
+{% block title %}
+Shore-更改用户信息
+{% endblock %}
+{% block usercss %}
+.errorlist{
+color: red;
+}
+.head_container{
+position: relative;
+width: 100px;
+height: 100px;
+border-radius: 50%;
+overflow: hidden;
+}
+.head_container img{
+width: 100%;
+height: 100%;
+}
+
+.head_container input{
+width: 100%;
+height: 100%;
+position: absolute;
+left: 0;
+top: 0;
+opacity: 0
+}
+
+{% endblock %}
+{% block user_box %}
+
+
+<div class="updateuseinfoview" style="display: flex;justify-content: center;">
+    <div class="col-md-6 col-md-oddset-3">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ uf.head.label_tag }}
+                <canvas id="canvas" style="display: none;"></canvas>
+                <div class="head_container">
+                    <img src="/media/{{ user.head }}">
+                    {{ uf.head }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ uf.username.label_tag }}
+                {{ uf.username }}
+            </div>
+            <div class="form-group">
+                {{ uf.email.label_tag }}
+                {{ uf.email }}
+            </div>
+            {% if messages %}
+            {% for message in messages %}
+            <p class="text-success">{{ message }}</p>
+            {% endfor %}
+            {% endif %}
+            <button type="submit" class="btn btn-primary">确认修改</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block inner_js %}
+<script>
+    console.log("upateuserinfo模板里面的js生效！")
+
+    $(function(){
+        $("#id_head").change(function(){
+            file = this.files[0]
+            console.log("#id_head的内容改变了！")
+            console.log(this.files[0])
+            let reader = new FileReader();
+            reader.onload = function(event){
+                console.log("新传入的图片加载完毕！")
+                var imageUrl = event.target.result;
+                console.log(imageUrl)
+                $('.head_container img').attr('src',imageUrl)
+
+<!--                var previewImage = document.getElementById('previewImage');-->
+<!--                previewImage.src = imageUrl;-->
+            }
+            reader.readAsDataURL(file);
+        });
+
+
+
+
+    })
+
+
+</script>
+{% endblock %}

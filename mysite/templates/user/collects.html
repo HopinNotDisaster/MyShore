@@ -1,0 +1,62 @@
+{% extends 'user/ccuubase.html' %}
+
+
+{% block title %}
+Shore-用户收藏
+{% endblock %}
+
+
+{% block user_box %}
+
+<div class="row">
+    <div class="col-md-offset-3 col-md-6">
+        {% for w in wallpapers %}
+        <li class="list-group-item">
+            <img src="/media/{{ w.wallpaper.image }}" width="300px" style="display:block">
+            {{ w.wallpaper.title }}
+            <button id="{{ w.wallpaper.id }}" type="button" class="btn btn-danger btn-sm fr">移除</button>
+        </li>
+        {% empty %}
+            <li class="list-group-item">尚未添加收藏</li>
+        {% endfor %}
+    </div>
+</div>
+{% csrf_token %}
+{% endblock %}
+
+
+
+
+{% block inner_js %}
+    <script>
+        $("[type='button']").click(function(){
+            let current = $(this).parent();
+            let w_id = $(this).attr("id");
+            $.ajax({
+                url:"/operate/cancel/",
+                method: "post",
+                data:{
+                     "w": w_id,
+                    "user": "{{ user.id }}"
+                },
+                 headers: {
+                    'X-CSRFToken': $("[name='csrfmiddlewaretoken']").val()  // 设置请求头中的CSRF令牌
+                 },
+
+                 success:function(res){
+                    if(res.code == 0){
+                        alert(res.info)
+                        current.remove();
+                    }
+                    else{
+                        alert(res.info)
+                    }
+                 }
+
+            })
+        })
+    </script>
+
+
+
+{% endblock %}

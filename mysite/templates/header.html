@@ -1,0 +1,350 @@
+{% load static %}
+
+<style>
+.headcontainer {
+    width: 1500px;
+}
+.link_size {
+    display: flex;
+    justify-content: space-between;
+  }
+.link_size p{
+    margin:10px;
+
+}
+
+
+</style>
+
+
+{# 历史盒子的css #}
+<style>
+  .history{
+      position: relative;
+ }
+
+ .history:hover .history-box{
+ display: block;
+ }
+ .history-box {
+    width: 280px;
+    position: absolute;
+    top: 48px;
+    left: -128px;
+    display: none;
+    z-index: 9999;
+}
+
+.history-box>.arrow{
+    border-width: 8px;
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.history-box .history-content, .header-user-box .header-user-content {
+    max-height: 400px;
+    border-top: 2px solid #ff620e;
+    background-color: #fff;
+    padding: 10px;
+    box-shadow: 0 0 5px #9f9f9f;
+    overflow-y: scroll;
+}
+
+.history-box .history-content .history-item:first-child {
+    margin-top: 0;
+}
+.history-box .history-content .history-item {
+    margin-top: 10px;
+}
+.clearfix {
+    zoom: 1;
+}
+
+.history-box .history-content .history-item .history-img {
+    width: 75px;
+    display: block;
+}
+.page-header_fast .fast-item a {
+    color: #999;
+    font-size: 12px;
+}
+.fl {
+    float: left;
+}
+.cover-box {
+    margin-top: 20px;
+    width: 100%;
+    height: 0;
+    padding-bottom: 133.33%;
+    position: relative;
+    display: block;
+}
+
+.cover-box img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.history-box .history-content .history-item .history-info {
+    width: 160px;
+    font-size: 14px;
+    float: left;
+    padding-left: 10px;
+}
+.tl {
+    text-align: left;
+}
+
+.history-box .history-content .history-item .history-info a {
+    color: #333;
+    font-size: 14px;
+}
+
+.history-box .history-content .history-item .history-info h1 {
+    font-size: 16px;
+    padding-bottom: 3px;
+}
+.line-clamp-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: normal;
+}
+
+.history-box .history-content .history-item .history-info p {
+    margin-top: 3px;
+}
+
+.history-box .history-content .history-item .history-info .tag {
+    color: #999;
+}
+
+.history-box .history-content .history-item .history-info .select-color {
+    color: #ff620e;
+}
+
+
+
+</style>
+
+
+{# 历史记录里面的图片 #}
+<style>
+    .history .history_img + .history_img{
+
+        margin-top : 10px
+
+    }
+
+
+
+</style>
+
+
+<div class="container headcontainer">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">ＳＨＯＲＥ　ＷＡＬＬＰＡＰＥＲ</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                {# 图标右边，搜索框左边的部分！ #}
+                <ul class="nav navbar-nav">
+                    {% if is_index %}
+                    <li class="active"><a href="/">首页 </a></li>
+                    {% else %}
+                    <li class=""><a href="/">首页 </a></li>
+                    {% endif %}
+                    <li><a href="#">最新</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">分类 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">尺寸 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="link_size">
+                                <div>
+                                    {% for s in sizel %}
+                                    <a href="{% url 'main:size' s.id %}"><p>{{s.scale}}</p></a>
+                                    {% endfor %}
+                                </div>
+                                <div>
+                                    {% for s in sizer %}
+                                    <a href=""><p>{{s.scale}}</p></a>
+                                    {% endfor %}
+                                </div>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    <li><a href="#">4K动漫</a></li>
+                    <li><a href="#">4K美女</a></li>
+                </ul>
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="请搜索你想找的壁纸～">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
+
+
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li class="history">
+                        <a href="#">记录</a>
+                        <div class="history-box">
+                            <div class="arrow">
+
+                            </div>
+                            <div class="history-content">
+
+                                <img class="history_img" style="display:block" width="100px"
+                                     src="/media/_uploads_allimg_240416_002230-17131981504323.jpg">
+
+                                <img class="history_img" style="display:block" width="100px"
+                                     src="/media/_uploads_allimg_240416_002230-17131981504323.jpg">
+
+                            </div>
+
+
+                        </div>
+                    </li>
+
+
+                    {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false" style="padding: 10px 0 0 0;">
+                            {{ user.username }}
+                            <img src="/media/{{ user.head }}" alt=""
+                                 style="width:30px; border-radius: 50%">
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/user/center">个人中心</a></li>
+                            <li><a href="/user/collects">用户收藏</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/user/logout">退出登录</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li><a href="/user/login">登录</a></li>
+                    <li><a href="/user/regist">注册</a></li>
+                    {% endif %}
+
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>
+
+
+<script src="/static/js/jquery-3.7.1.js "></script>
+
+
+<script>
+    console.log("说明header中的js管用！")
+<!--    let wallpapers = [-->
+<!--        {-->
+<!--            wid : 178,-->
+<!--            wimg:"_uploads_allimg_240416_002020-1713198020e46e.jpg",-->
+<!--            wtitle:"金克丝 蓝色长发 房间 4K动漫壁纸_4K动漫图片"-->
+<!--        },-->
+<!--        {-->
+<!--            wid : 179,-->
+<!--            wimg:"_uploads_allimg_240416_002230-17131981504323.jpg",-->
+<!--            wtitle:"金克丝 蓝色头发 黑色外套 报纸墙4K动漫壁纸_4K动漫图片"-->
+<!--        },-->
+
+<!--        {-->
+<!--            wid : 180,-->
+<!--            wimg:"_uploads_allimg_240416_001549-17131977491573.jpg",-->
+<!--            wtitle:"古风蓝衣少女4K壁纸3840*2400_4K动漫图片"-->
+<!--        }-->
+<!--    ]-->
+
+    function get_history_data(){
+
+        let history_wallpapers = JSON.parse(localStorage.getItem("wallpapers")) || [];
+        return history_wallpapers;
+
+    }
+
+    function init_history_wallpapers(){
+        $(".history-content").empty();
+        let history_wallpapers = get_history_data();
+        history_wallpapers.forEach(function(item){
+
+            $(".history-content").append(`
+
+
+                <img class="history_img" style="display:block" width="100px"
+                src="/media/${item.wimg}">
+
+            `)
+
+
+
+
+
+
+
+        })
+
+
+
+    }
+
+
+    function add_history(item){
+        console.log("使用了add_history!")
+        let history_wallpapers = get_history_data();
+        history_wallpapers.push({
+
+            wid : item.id,
+            wimg:item.image,
+            wtitle:item.title
+
+
+        })
+
+
+        localStorage.setItem("wallpapers",JSON.stringify(history_wallpapers))
+        init_history_wallpapers()
+    }
+
+
+    init_history_wallpapers()
+</script>

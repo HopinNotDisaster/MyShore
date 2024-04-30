@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shore-UserSomthings
+{% endblock %}
+
+
+{% block inner_css %}
+<style>
+.guding, .guding2 {
+<!--    position: fixed;-->
+    z-index: 2;
+}
+.p-side {
+    float: left;
+    width: 160px;
+}
+.p-side-nav {
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 10px;
+    background: pink;
+    width: 160px;
+}
+.p-side-nav .curr {
+    background: #f9f9f9;
+    color: #ff620e;
+    text-align: center;
+    font-size: 16px;
+    font-size: 1.6rem;
+}
+.p-side-nav li {
+    margin-top: -1px;
+    height: 50px;
+    border-top: 1px solid #f2f2f2;
+    line-height: 50px;
+}
+
+.p-side-nav li a, .p-side-nav li a:visited {
+    display: block;
+    height: 50px;
+    color: #505050;
+    text-align: center;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 50px;
+}
+
+.user-center-view {
+    float: right;
+    width: 980px;
+    min-height: 600px;
+    margin-bottom: 30px;
+
+}
+
+.p-side-nav .curr a,  .p-side-nav li a:hover {
+    background: #ff620e;
+    color: #fbfbfb;
+    text-decoration: none;
+}
+
+
+
+{% block  usercss %}
+{% endblock %}
+
+</style>
+{% endblock %}
+
+
+{% block main %}
+
+    <div class="p-side guding2">
+        <div class="p-side-nav">
+            <ul id="nav">
+                {% if router_path == 'center' %}
+                <li class="T1 curr"><a href="{% url 'user:center' %}">用户中心</a></li>
+                {% else %}
+                <li class="T1"><a href="{% url 'user:center' %}">用户中心</a></li>
+                {% endif %}
+                {% if router_path == 'updateuserinfo' %}
+                <li class="T3 curr"><a href="{% url 'user:updateuserinfo' %}">修改资料</a></li>
+                {% else %}
+                <li class="T3"><a href="{% url 'user:updateuserinfo' %}">修改资料</a></li>
+                {% endif %}
+                {% if router_path == 'updateuserpassword' %}
+                <li class="T4 curr"><a href="{% url 'user:updateuserpassword' %}">修改密码</a></li>
+                {% else %}
+                <li class="T4"><a href="{% url 'user:updateuserpassword' %}">修改密码</a></li>
+                {% endif %}
+                {% if router_path == 'collects' %}
+                <li class="T2 curr"><a href="{% url 'user:collects' %}">我的收藏</a></li>
+                {% else %}
+                <li class="T2"><a href="{% url 'user:collects' %}">我的收藏</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="user-center-view" >
+        {% block user_box %}
+
+        {% endblock %}
+    </div>
+
+{% endblock %}
+
+
+
+
+

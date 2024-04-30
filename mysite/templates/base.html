@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}BASE{% endblock %}
+    </title>
+
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+
+    <!--    Booststrap的css-->
+    <link rel="stylesheet" href="/static/js/bootstrap-3.4.1-dist/css/bootstrap.css">
+    <!--    iconfont的css-->
+        <link rel="stylesheet" href="/static/js/iconfont/iconfont.css">
+<!--        <link rel="stylesheet" href="/static/js/iconfont/change/iconfont.css">-->
+
+    {% block inner_css %}
+    {% endblock %}
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #F2F2F2;
+        }
+        .container {
+        margin-right: auto;
+        margin-left: auto;
+        padding:0;
+        }
+        .container {
+            width: 1200px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+{% include 'header.html' %}
+
+<div class="container">
+    {% block main %}
+    {% endblock%}
+</div>
+
+
+<script src="/static/js/jquery-3.7.1.js "></script>
+<script src="/static/js/bootstrap-3.4.1-dist/js/bootstrap.js"></script>
+<script src="/static/js/header.js "></script>
+
+
+
+{% block inner_js %}
+{% endblock %}
+
+</body>
+
+</html>

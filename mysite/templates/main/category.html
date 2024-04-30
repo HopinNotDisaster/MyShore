@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Shore-Category
+{% endblock %}
+
+
+{% block inner_css %}
+
+{# 主要壁纸的css #}
+<style>
+.slist {
+    margin-top: 10px;
+    padding-bottom: 10px;
+    overflow: hidden;
+}
+
+.slist ul {
+    margin-right: -15px;
+    width: 1215px;
+    overflow: hidden;
+}
+
+.slist ol, .slist ul {
+    list-style: none;
+}
+.slist body, .slist div, .slist iframe, .slist ul, .slist ol, .slist dl, .slist dt, .slist dd, .slist h1, .slist h2, .slist select, .slist textarea {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+
+.slist ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+    unicode-bidi: isolate;
+}
+
+.slist li {
+    float: left;
+    width: 390px;
+    height: 250px;
+    margin: 0 15px 10px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.slist li {
+    list-style-type: none;
+}
+
+
+.slist li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    unicode-bidi: isolate;
+}
+.slist .page {
+    height: 38px;
+    text-align: center;
+    padding: 5px 0 25px;
+}
+
+.slist body, .slist div, .slist iframe {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+.slist div {
+    display: block;
+    unicode-bidi: isolate;
+}
+
+.slist .page a, .slist .page a:visited, .slist .page b, .slist .page > input {
+    background: #fff;
+    padding: 0 16px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 4px 0 5px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+.slist a:link, .slist a:visited {
+    color: #333;
+    text-decoration: none;
+}
+.slist a {
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.slist a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.slist .page span {
+    padding: 0 10px;
+}
+.slist .page a:hover, .slist .page b {
+    background: #00ce41;
+    border: 1px solid #00ce41;
+    color: #fff;
+    text-decoration: none;
+}
+.slist .page a, .slist .page a:visited, .slist .page b, .slist .page > input {
+    background: #fff;
+    padding: 0 16px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 4px 0 5px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.slist .page span {
+    padding: 0 10px;
+}
+
+.slist b {
+    font-weight: bold;
+}
+.slist .page > input {
+    width: 40px;
+    padding: 0 5px;
+    text-align: center;
+    margin: 0;
+}
+.slist .page a, .slist .page a:visited, .slist .page b, .slist .page > input {
+    background: #fff;
+    padding: 0 16px;
+    border: 1px solid #ddd;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 4px 0 5px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+.slist body, .slist div, .slist iframe, .slist ul, .slist ol, .slist dl, .slist dt, .slist dd{
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+.slist input[type="text" i] {
+    padding-block: 1px;
+    padding-inline: 2px;
+}
+
+
+
+.slist input {
+    font-style: ;
+    font-variant-ligatures: ;
+    font-variant-caps: ;
+    font-variant-numeric: ;
+    font-variant-east-asian: ;
+    font-variant-alternates: ;
+    font-variant-position: ;
+    font-weight: ;
+    font-stretch: ;
+    font-size: ;
+    font-family: ;
+    font-optical-sizing: ;
+    font-kerning: ;
+    font-feature-settings: ;
+    font-variation-settings: ;
+    text-rendering: auto;
+    color: fieldtext;
+    letter-spacing: normal;
+    word-spacing: normal;
+    line-height: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: start;
+    appearance: auto;
+    -webkit-rtl-ordering: logical;
+    cursor: text;
+    background-color: field;
+    margin: 0em;
+    padding: 1px 0px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+    border-image: initial;
+    padding-block: 1px;
+    padding-inline: 2px;
+}
+
+.slist .page span {
+    padding: 0 10px;
+}
+
+.slist li img {
+    width: 100%;
+}
+.slist img {
+    vertical-align: top;
+}
+.slist div, .slist form, .slist img, .slist ul, .slist ol,  .slist dl, .slist dt, .slist dd {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.slist img {
+    border: 0;
+}
+
+.slist img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+}
+
+.slist b {
+    font-weight: bold;
+}
+
+.slist b {
+    font-weight: bold;
+}
+
+
+.slist div, .slist form, .slist img, .slist ul, .slist ol,  .slist dl, .slist dt, .slist dd {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+.slist li b {
+    display: block;
+    height: 40px;
+    position: absolute;
+    right: 10px;
+    left: 0px;
+    bottom: -40px ;
+    height: 34px;
+    line-height: 34px;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+    font-weight: normal;
+    color: #fff;
+    width: 100%;
+    text-indent: 10px;
+    color: #edf0f2;
+    font-size: 14px;
+}
+.slist li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+    list-style-type: none;
+
+}
+.slist a:link, .slist a:visited {
+    color: #333;
+    text-decoration: none;
+}
+.slist a {
+    -webkit-transition: all .2s;
+    transition: all .2s;
+    cursor: pointer;
+}
+
+.slist a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+
+.slist img {
+    overflow-clip-margin: content-box;
+    overflow: clip;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+    vertical-align: top;
+
+}
+
+
+
+</style>
+
+{% endblock %}
+
+
+
+{% block main %}
+
+{{c.title}}
+
+
+
+<div class="slist">
+    <ul class="clearfix">
+        {% for w in ws %}
+        <li>
+            <a href="{% url 'main:detail' w.id %}" >
+                <img src="/media/{{ w.image }}" alt="">
+                <b style="bottom: -40px;">{{w.title}}</b>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+
+{% endblock %}

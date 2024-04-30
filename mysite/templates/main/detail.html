@@ -1,0 +1,678 @@
+{% extends 'base.html' %}
+{% load filter_extras %}
+
+{% block title %}
+Shore-Detail
+{% endblock %}
+
+
+{% block inner_css %}
+
+{# view下方三个div的css #}
+<style>
+    .view {
+        float: left;
+        width: 850px;
+        border: 1px solid #EDEDED;
+    }
+
+    .photo-hd {
+        border-bottom: 1px solid #EDEDED;
+        height: 64px;
+        line-height: 64px;
+        text-align: center;
+        background: #fff;
+    }
+
+    .photo-hd h1 {
+        font-size: 18px;
+    }
+
+    .photo-pic {
+        width: 850px;
+        height: 100%;
+    }
+
+    a:link,
+    a:visited {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a {
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        cursor: pointer;
+    }
+
+    .photo-pic img {
+        width: 100%;
+    }
+
+    img {
+        vertical-align: top;
+    }
+
+    img {
+        overflow-clip-margin: content-box;
+        overflow: clip;
+    }
+
+    .photo-tags {
+        padding: 10px 0 4px;
+        clear: both;
+    }
+
+    .photo-tags a {
+        display: inline-block;
+        height: 24px;
+        background: #fff;
+        border-radius: 2px;
+        margin-right: 6px;
+        padding: 4px 10px 0px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    a:link,
+    a:visited {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a {
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        cursor: pointer;
+    }
+
+
+</style>
+
+{# 图片右侧的信息 #}
+<style>
+    .side {
+        float: right;
+        width: 320px;
+    }
+
+    .downpic {
+        height: 60px;
+        background: #00ce41;
+        border-radius: 4px;
+        position: relative;
+    }
+
+    .downpic a {
+        display: block;
+        line-height: 60px;
+        text-align: center;
+        text-indent: 30px;
+        font-size: 20px;
+        color: #fff;
+    }
+
+    a:link,
+    a:visited {
+        color: #333;
+        text-decoration: none;
+    }
+
+    a {
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        cursor: pointer;
+    }
+
+    .infor {
+        border: #ededed 1px solid;
+        background-color: #fafafa !important;
+        padding: 15px 0 10px;
+        margin: 15px 0;
+        padding: 10px 15px;
+    }
+
+    .infor p {
+        line-height: 28px;
+        color: #333;
+    }
+
+
+</style>
+
+
+{# 推荐壁纸的css #}
+<style>
+    .slist {
+        margin-top: 10px;
+        padding-bottom: 10px;
+
+    }
+
+    .slist ul {
+        margin-right: -15px;
+        width: 1215px;
+        overflow: hidden;
+    }
+
+    .slist ol,
+    .slist ul {
+        list-style: none;
+    }
+
+    .slist body,
+    .slist div,
+    .slist iframe,
+    .slist ul,
+    .slist ol,
+    .slist dl,
+    .slist dt,
+    .slist dd,
+    .slist h1,
+    .slist h2,
+    .slist select,
+    .slist textarea {
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 100%;
+        font-family: inherit;
+    }
+
+
+    .slist ul {
+        display: block;
+        list-style-type: disc;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        padding-inline-start: 40px;
+        unicode-bidi: isolate;
+    }
+
+    .slist li {
+        float: left;
+        width: 390px;
+        height: 250px;
+        margin: 0 15px 10px 0;
+        position: relative;
+    }
+
+    .slist li {
+        list-style-type: none;
+    }
+
+
+    .slist li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+        unicode-bidi: isolate;
+    }
+
+    .slist .page {
+        height: 38px;
+        text-align: center;
+        padding: 5px 0 25px;
+    }
+
+    .slist body,
+    .slist div,
+    .slist iframe {
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 100%;
+        font-family: inherit;
+    }
+
+    .slist div {
+        display: block;
+        unicode-bidi: isolate;
+    }
+
+    .slist .page a,
+    .slist .page a:visited,
+    .slist .page b,
+    .slist .page>input {
+        background: #fff;
+        padding: 0 16px;
+        border: 1px solid #ddd;
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
+        margin: 0 4px 0 5px;
+        font-size: 14px;
+        border-radius: 3px;
+    }
+
+    .slist a:link,
+    .slist a:visited {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .slist a {
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        cursor: pointer;
+    }
+
+    .slist a:-webkit-any-link {
+        color: -webkit-link;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .slist .page span {
+        padding: 0 10px;
+    }
+
+    .slist .page a:hover,
+    .slist .page b {
+        background: #00ce41;
+        border: 1px solid #00ce41;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .slist .page a,
+    .slist .page a:visited,
+    .slist .page b,
+    .slist .page>input {
+        background: #fff;
+        padding: 0 16px;
+        border: 1px solid #ddd;
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
+        margin: 0 4px 0 5px;
+        font-size: 14px;
+        border-radius: 3px;
+    }
+
+    .slist .page span {
+        padding: 0 10px;
+    }
+
+    .slist b {
+        font-weight: bold;
+    }
+
+    .slist .page>input {
+        width: 40px;
+        padding: 0 5px;
+        text-align: center;
+        margin: 0;
+    }
+
+    .slist .page a,
+    .slist .page a:visited,
+    .slist .page b,
+    .slist .page>input {
+        background: #fff;
+        padding: 0 16px;
+        border: 1px solid #ddd;
+        display: inline-block;
+        height: 36px;
+        line-height: 36px;
+        margin: 0 4px 0 5px;
+        font-size: 14px;
+        border-radius: 3px;
+    }
+
+    .slist body,
+    .slist div,
+    .slist iframe,
+    .slist ul,
+    .slist ol,
+    .slist dl,
+    .slist dt,
+    .slist dd {
+        margin: 0;
+        padding: 0;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 100%;
+        font-family: inherit;
+    }
+
+    .slist input[type="text" i] {
+        padding-block: 1px;
+        padding-inline: 2px;
+    }
+
+
+
+
+
+    .slist .page span {
+        padding: 0 10px;
+    }
+
+    .slist li img {
+        width: 100%;
+    }
+
+    .slist img {
+        vertical-align: top;
+    }
+
+    .slist div,
+    .slist form,
+    .slist img,
+    .slist ul,
+    .slist ol,
+    .slist dl,
+    .slist dt,
+    .slist dd {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .slist b {
+        font-weight: bold;
+    }
+
+    .slist b {
+        font-weight: bold;
+    }
+
+    .slist div,
+    .slist form,
+    .slist img,
+    .slist ul,
+    .slist ol,
+    .slist dl,
+    .slist dt,
+    .slist dd {
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    .slist li b {
+        display: block;
+        height: 40px;
+        position: absolute;
+        right: 10px;
+        left: 0px;
+        bottom: -40px;
+        height: 34px;
+        line-height: 34px;
+        -webkit-transition: all .2s ease-in;
+        transition: all .2s ease-in;
+        font-weight: normal;
+        color: #fff;
+        width: 100%;
+        text-indent: 10px;
+        color: #edf0f2;
+        font-size: 14px;
+    }
+
+    .slist li {
+        display: list-item;
+        text-align: -webkit-match-parent;
+        list-style-type: none;
+
+    }
+
+    .slist a:link,
+    .slist a:visited {
+        color: #333;
+        text-decoration: none;
+    }
+
+    .slist a {
+        -webkit-transition: all .2s;
+        transition: all .2s;
+        cursor: pointer;
+    }
+
+    .slist a:-webkit-any-link {
+        color: -webkit-link;
+        cursor: pointer;
+        text-decoration: underline;
+    }
+
+    .slist img {
+        overflow-clip-margin: content-box;
+        overflow: clip;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border: 0;
+        vertical-align: top;
+    }
+
+
+</style>
+
+
+{# 收藏div的css #}
+<style>
+
+    .collect{
+        float: right;
+        width: 320px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .collect .iscollect{
+        width: 100%;
+        height: 50px;
+        background-color: orange;
+        text-align: center;
+    }
+    .collect .iscollect span{
+        line-height: 50px;
+        font-size: 18px;
+    }
+
+</style>
+{% endblock %}
+
+
+{% block main %}
+<div class="view">
+    <div class="photo-hd" style="display:flex;justify-content: center;align-items: center;">
+        <h1>{{w.title}}</h1>
+    </div>
+    <div class="photo-pic">
+        <a href="" id="img">
+            <img src="/media/{{ w.image }}">
+        </a>
+    </div>
+    <div class="photo-tags">
+        热门搜索：
+        {% for c in random_categorys %}
+        <a href="{% url 'main:category' c.id %}">{{ c.title }}</a>
+        {% endfor %}
+
+    </div>
+</div>
+<div class="side">
+
+
+
+    <div class="downpic">
+        <a href="/media/{{ w.image }}" data-id="34091" target="_blank">
+            <span style="font-size: 20px;" class="iconfont icon-xiazai"></span>高清原图({{w.size}})
+        </a>
+    </div>
+
+
+
+
+    <div class="infor">
+        <p>分类 <span> <a target="_blank" href="/4kdongman/">{{w.category}}</a> </span></p>
+        <p>尺寸<span>{{w.size}}</span></p>
+        <p>体积 <span>{{w.volume}}</span></p>
+        <p>上传时间<span>{{w.create_time}}</span></p>
+    </div>
+</div>
+
+<div class="collect user_operate">
+
+    {% if w|has_collected:user %}
+    <div class="iscollect cancel" >
+    <span>取消收藏</span><span class="iconfont icon-shoucang"></span>
+    </div>
+    {% else %}
+    <div class="iscollect add" >
+    <span>添加收藏</span><span class="iconfont icon-shoucang"></span>
+    </div>
+    {% endif %}
+
+</div>
+
+<div class="morelike" style="clear:both;font-size:24px;display: flex;justify-content: space-between;">
+    <div><b>更多推荐</b></div>
+    <div class="change"><span style="font-size:16px">换一换</span><span class="iconfont icon-huanyihuan"></span></div>
+</div>
+<div class="slist ">
+    <ul class="clearfix recommond">
+        {% for w in random_ws %}
+        <li>
+            <a href="{% url 'main:detail' w.id %}">
+                <img src="/media/{{ w.image }}" alt="">
+                <b style="bottom: -40px;">{{w.title}}</b>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+
+{% block inner_js %}
+
+{# 换一换的js #}
+<script>
+    console.log("说明detail里面的js管用！")
+    $(document).ready(function () {
+        $(".change").click(function () {
+            console.log($(this))
+            console.log("接下来发起ajax请求！")
+            $.ajax({
+                url: "/recommond",
+                method: "get",
+                success: function (data) {
+                    console.log("视图已经将新数据返回！")
+                    $(".recommond").empty()
+                    data.random_ws.forEach(function (item, index) {
+                        $(".recommond").append(`
+                        <li>
+                            <a href="/detail/${ item.id }" >
+                                <img src="${ item.image }" alt="">
+                                <b style="bottom: -40px;">${item.title}</b>
+                            </a>
+                        </li>
+                        `)
+                    })
+                }
+            })
+        })
+    })
+
+</script>
+
+
+{# 收藏的js #}
+<script>
+$(".user_operate").on("click",".add",function(){
+    console.log("点到了add按钮！")
+    $.ajax({
+                url:"/operate/add/",
+                method:"post",
+                data:{
+                    "w":"{{ w.id }}",
+                    "user":"{{ user.id }}"
+                },
+                headers:{
+                    'X-CSRFToken':$("[name='scrfmiddlewaretoken']").val()
+                },
+
+                success:function(res){
+                    console.log("添加收藏的ajax成功回调！")
+                    alert(res.info)
+                    if(res.code==0){
+                        $(".add").remove();
+                        $(".user_operate").append(`
+                            <div class="iscollect cancel" >
+                                <span>取消收藏</span><span class="iconfont icon-shoucang"></span>
+                            </div>
+                        `)
+                    }
+                },
+            })
+
+
+})
+
+
+$(".user_operate").on("click",".cancel",function(){
+    console.log("点到了cancel按钮！")
+    $.ajax({
+                url:"/operate/cancel/",
+                method:"post",
+                data:{
+                    "w":"{{ w.id }}",
+                    "user":"{{ user.id }}"
+                },
+                headers:{
+                    'X-CSRFToken':$("[name='scrfmiddlewaretoken']").val()
+                },
+
+                success:function(res){
+                    console.log("取消收藏的ajax成功回调！")
+                    alert(res.info)
+                    if(res.code==0){
+                        $(".cancel").remove();
+                        $(".user_operate").append(`
+                            <div class="iscollect add" >
+                                <span>添加收藏</span><span class="iconfont icon-shoucang"></span>
+                            </div>
+                        `)
+                    }
+                },
+            })
+
+
+})
+
+
+
+</script>
+
+
+
+
+{# 历史记录js #}
+
+<script>
+
+    console.log("说明详情页的js管用！")
+    add_history({
+
+            id : "{{ w.id }}",
+            image:"{{ w.image }}",
+            title:"{{ w.title }}"
+        })
+
+
+
+
+
+
+
+</script>
+
+{% endblock %}
+
+

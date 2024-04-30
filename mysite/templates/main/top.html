@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}
+HappyComicBox-Rank
+{% endblock %}
+
+
+{% block inner_css %}
+
+<style>
+.content-margin {
+    margin-top: 80px;
+}
+
+.container {
+    width: 1200px;
+    margin: auto;
+}
+
+.library-page {
+    padding-top: 10px;
+}
+.mb10 {
+    margin-bottom: 10px;
+}
+.wi {
+    width: 100%;
+}
+.clearfix {
+    zoom: 1;
+}
+
+.rank-class-box {
+    width: 150px;
+}
+.library-class-box {
+    padding: 20px 30px 10px;
+    width: 150px;
+    border: 1px solid #dadada;
+    background-color: #fff;
+    float: left;
+    border-top: 2px solid #ff7e39;
+    box-shadow: 0 1px 6px 0 rgb(0 0 0 / 10%);
+}
+
+.library-class-box .cart-tag {
+    padding-left: 12px;
+    margin-left: -10px;
+    margin-bottom: 20px;
+    font: 24px / 26px 寰蒋闆呴粦;
+    border-left: 5px solid rgb(255, 154, 106);
+}
+
+.rank-class-box .rank-block {
+    border-bottom: 1px dashed #ccc;
+    padding: 10px;
+}
+
+.rank-class-box .rank-block .active {
+    color: #ff7e39;
+}
+
+.rank-content-box {
+    width: 1020px;
+    float: right;
+}
+
+.rank-content-box .cartoon-block-box li:nth-of-type(1n) {
+    margin-right: 10px;
+}
+.rank-content-box .cartoon-block-box li {
+    width: 190px;
+}
+.cartoon-block-box li {
+    width: 162px;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 15px;
+}
+
+.cartoon-block-box li .cart-item {
+    width: 100%;
+}
+
+.cartoon-block-box li .cart-item .cart-cover {
+    width: 100%;
+    height: 0;
+    padding-bottom: 133.33%;
+    position: relative;
+    display: block;
+    margin-bottom: 7px;
+}
+a {
+    cursor: pointer;
+    color: #333;
+}
+
+.cartoon-block-box li .cart-item .cart-cover img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.cartoon-block-box li .cart-item .cart-cover .new-chapter {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    max-width: 80%;
+    line-height: 20px;
+    text-align: right;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, .5);
+    overflow: hidden;
+    font-size: 12px;
+    color: #fff;
+    padding: 0 4px;
+}
+.line-clamp-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: normal;
+}
+
+.line-clamp-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: normal;
+}
+
+.cartoon-block-box li .cart-item .cart-info a {
+    color: #333;
+    font-size: 15px;
+    line-height: 26px;
+    font-weight: 600;
+}
+a {
+    cursor: pointer;
+    color: #333;
+}
+.cartoon-block-box li .cart-item .cart-info span {
+    display: block;
+    margin: 2px 0;
+    font-size: 13px;
+    height: 20px;
+    line-height: 20px;
+    color: #999;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.line-clamp-1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: normal;
+}
+
+.clear-both {
+    clear: both;
+}
+</style>
+
+{% endblock %}
+
+
+{% block main %}
+<div class="index-content container content-margin">
+
+
+    <div class="library-page clearfix mb10 wi">
+        <div class="library-class-box rank-class-box">
+            <div class="cart-tag">排行榜</div>
+
+            {% if top_type == 'views' %}
+            <div class="rank-block"><a href="/top/views/" class="active">人气榜</a></div>
+            {% else %}
+             <div class="rank-block"><a href="/top/views/">人气榜</a></div>
+            {% endif %}
+
+
+            {% if top_type == 'votes' %}
+             <div class="rank-block"><a href="/top/votes/" class="active">推荐榜</a></div>
+            {% else %}
+              <div class="rank-block"><a href="/top/votes/">推荐榜</a></div>
+            {% endif %}
+
+
+
+            {% if top_type == 'collects' %}
+             <div class="rank-block"><a href="/top/collects/"  class="active">收藏榜</a></div>
+            {% else %}
+               <div class="rank-block"><a href="/top/collects/">收藏榜</a></div>
+            {% endif %}
+
+
+
+
+
+            {% if top_type == 'scores' %}
+            <div class="rank-block"><a href="/top/scores/"  class="active">评分榜</a></div>
+            {% else %}
+              <div class="rank-block"><a href="/top/scores/">评分榜</a></div>
+            {% endif %}
+
+
+
+        </div>
+        <div class="rank-content-box">
+            <ul class="cartoon-block-box clearfix">
+                {% for b in books %}
+                <li>
+                    <div class="cart-item">
+                        <a class="cart-cover" href="">
+                            <img src="/media/{{ b.main_image }}" alt="妖神记">
+                            <span class="new-chapter line-clamp-1">{{ b.chapter_set.last.title }}</span>
+                        </a>
+                        <div class="cart-info">
+                            <p class=" line-clamp-1"><a href="" class="hover-a">{{ b.title }}</a></p>
+                            <span class="line-clamp-1">{{ b.info }}</span>
+                        </div>
+                    </div>
+                </li>
+
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="clear-both"></div>
+</div>
+{% endblock %}
